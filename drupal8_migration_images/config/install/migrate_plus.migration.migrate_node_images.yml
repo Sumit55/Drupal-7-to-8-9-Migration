@@ -1,0 +1,38 @@
+id: migrate_node_images
+label: Migrate node images
+source:
+  plugin: migrate_d8_node
+  node_type: article
+process:
+  # In D6, nodes always have a tnid, but it's zero for untranslated nodes.
+  # We normalize it to equal the nid in that case.
+  # @see \Drupal\node\Plugin\migrate\source\d6\Node::prepareRow().
+  # If you are using this file to build a custom migration consider removing
+  # the nid and vid fields to allow incremental migrations.
+  # nid: tnid
+  # vid: vid
+  created: created
+  revision_uid: revision_uid
+  revision_log: log
+  revision_timestamp: timestamp
+  title: title
+  type: type
+  uid:
+    plugin: default_value
+    default_value: 1
+  status: status
+  sticky: sticky
+  'body/value': body_value
+  'body/format':
+    plugin: default_value
+    default_value: full_html
+  field_image:
+    plugin: migration_lookup
+    migration: drupal8_files
+    no_stub: true
+    source: 'field_image/0/field_image_fid'
+destination:
+  plugin: entity:node
+migration_dependencies:
+  required:
+    - drupal8_files

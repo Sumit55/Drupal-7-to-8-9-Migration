@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Uninstall function.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function drupal8_migration_images_uninstall() {
+  // Remove migration configs.
+  \Drupal::configFactory()->getEditable('migrate_plus.migration.migrate_node_images')->delete();
+}

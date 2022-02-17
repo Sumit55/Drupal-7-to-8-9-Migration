@@ -1,0 +1,10 @@
+name: "drupal8_migration_files"
+type: module
+description: Migrate Files from legacy Drupal 8.
+core: 8.x
+core_version_requirement: ">=8"
+package: Custom
+dependencies:
+  - migrate_plus
+  - migrate_tools
+  - migrate_drupal

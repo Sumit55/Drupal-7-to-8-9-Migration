@@ -1,0 +1,21 @@
+<?php
+
+use Drupal\migrate\Plugin\MigrateSourceInterface;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Row;
+
+
+
+/**
+ * Implements hook_migrate_MIGRATION_ID_prepare_row().
+ */
+function custom_migrate_migrate_d7_node_article_prepare_row(Row $row, MigrateSourceInterface $source, MigrationInterface $migration) {
+  $values = $row->getSourceProperty('field_head_text');
+  $value_new = [];
+  if ($values) {
+    foreach ($values as $value) {
+      $value_new[] = ['item_id' => $value['value']];
+    }
+    $row->setSourceProperty('field_head_text_new', $value_new);
+  }
+}

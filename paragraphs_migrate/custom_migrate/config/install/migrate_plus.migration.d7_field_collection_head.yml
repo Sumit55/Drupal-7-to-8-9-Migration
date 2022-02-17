@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies: {  }
+id: d7_field_collection_head
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+migration_group: d7
+label: Head Text
+source:
+  plugin: d7_field_collection_item
+  key: migrate
+#  field_name is used in our custom plugin to get data about this field_collection_item.
+  field_name: field_head_text
+process:
+  field_text_1:
+    plugin: sub_process
+    source: field_text_1
+    process:
+      value: value
+    revision_id: revision_id
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: head_text
+migration_dependencies:
+  required: {  }
+  optional: {  }

@@ -1,0 +1,32 @@
+id: drupal8_files
+label: Migrate Files from legacy Drupal 8.
+migration_tags:
+  - Custom
+source:
+  plugin: d7_file
+  constants:
+    source_base_path: '/var/www/html/projects/migdrupal7'
+process:
+  fid: fid
+  filename: filename
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - filepath
+    -
+      plugin: urlencode
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - uri
+  filemime: filemime
+  status: status
+  created: timestamp
+  changed: timestamp
+  uid: uid
+destination:
+  plugin: 'entity:file'
